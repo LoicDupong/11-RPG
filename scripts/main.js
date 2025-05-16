@@ -4,6 +4,7 @@ const inputSp= document.getElementById('sp');
 
 const messageHTML = document.querySelector('.message');
 const heroesContainerHTML = document.querySelector('.heroes__container');
+const bgContainerHTML = document.getElementById('bg-container');
 const heroHTML = document.querySelector('.hero');
 
 const btnGenerate = document.querySelector('.btn');
@@ -30,12 +31,26 @@ class Hero {
         return `I'm the mighty ${this.name} and I'm ready to die!`;
     }
     attack(target){
-        
+        target.hp -= this.strength;
     }
-    magicAttack(){}
-    getDamage(){}
-    usePotion(){}
-    isDead(){}
+    magicAttack(target){
+        if (this.mana > 20) {
+            target.hp -= this.spellPower;
+            this.mana -= 20;
+        }
+    }
+    getDamage(damage){
+        this.hp -= damage:
+    }
+    usePotion(){
+        if (this.potions > 0) {
+            this.hp = Math.min(this.hp + 30, 100);
+            this.potions--;
+        }
+    }
+    isDead(){
+        return this.hp <= 0 ? true : false;
+    }
 }
 
 // === Create new Hero ===
@@ -79,7 +94,37 @@ displayTab();
 
 // === Display Battleground ===
 function displayBg() {
-    
+    if (selectHero.value && selectEnemy.value && selectEnemy.value !== selectHero.value) {
+        messageHTML.textContent = "";
+
+        const hero = heroesTab.find(h => h.name === selectHero.value);
+        const enemy = heroesTab.find(h => h.name === selectEnemy.value);
+
+        const bgContainer = document.createElement('div');
+        bgContainer.className = "battleground__container";
+
+        bgContainer.innerHTML = `
+            <div class="hero hero--bg hero--bg-1">
+                <div class="hero__info">
+                    <h2>${hero.name}</h2>
+                    <p>⚔ ${hero.strength} 🔮 ${hero.spellPower}</p>
+                </div>
+                <div class="hp-bar"></div>
+            </div>
+            <div class="hero hero--bg hero--bg-2">
+                <div class="hero__info">
+                    <h2>${enemy.name}</h2>
+                    <p>⚔ ${enemy.strength} 🔮 ${enemy.spellPower}</p>
+                </div>
+                <div class="hp-bar"></div>
+            </div>
+        `;
+
+        bgContainerHTML.innerHTML = ""; // optional: clear previous display
+        bgContainerHTML.append(bgContainer);
+    } else {
+        messageHTML.textContent = "❌ Please choose heroes to start the battle.";
+    }
 }
 
 // === Event Listner btn ===
@@ -98,12 +143,7 @@ btnGenerate.addEventListener('click', (e) => {
 })
 
 // == Start Battle
-btnGenerate.addEventListener('click', (e) => {
+btnStartBattle.addEventListener('click', (e) => {
     e.preventDefault();
-    if (selectHero.value && selectEnemy.value && selectEnemy.value != selectHero.value) {
-        messageHTML.textContent = "";
-
-    } else {
-       messageHTML.textContent = "❌ Please fill in all your heroe's data."
-    }  
+    displayBg();
 })
