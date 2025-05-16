@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11 | RPG</title>
+    <link rel="stylesheet" href="./styles/styles.min.css">
+    <script src="scripts/main.js" defer></script>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>⚔ Battleground Arena 🛡</h1>
+        <form action="">
+            <div class="input-wrapper">
+                <div class="input-wrapper">
+                    <label for="name" class="label label--name">Name</label>
+                    <input type="text" name="name" id="name" placeholder="Heroe's name">
+                </div>
+                <div class="input-wrapper">
+                    <label for="str" class="label label--str">Strength</label>
+                    <input type="number" name="str" id="str" placeholder="Heroe's Strength">
+                </div>
+                <div class="input-wrapper">
+                    <label for="sp" class="label label--sp">SpellPower</label>
+                    <input type="number" name="sp" id="sp" placeholder="Heroe's SpellPower">
+                </div>
+            </div>
+            <button class="btn btn--add">Create Hero</button>
+            <div class="input-wrapper">
+                    <select name="select__hero" id="select__hero">
+                        <option value="" selected disabled>Select your hero</option>
+                    </select>
+                    <select name="select__enemy" id="select__enemy">
+                        <option value="" selected disabled>Select your opponent</option>
+                    </select>
+
+            </div>
+            <button class="btn btn--fight">Start Battle</button>
+        </form>
+        <div class="message container">
+        </div>
+        <div class="battleground__container container"></div>
+        <div class="heroes__container container"></div>
+        
+    </div>
+</body>
+</html>
