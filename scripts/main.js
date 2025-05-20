@@ -99,7 +99,7 @@ function displayTab() {
         div.setAttribute("data-index", `${heroesTab.indexOf(hero)}`);
         div.innerHTML += `
         <h3 class="hero--name">${hero.name} | <span class="hero--class hero--class-${hero.heroClass}">${hero.heroClass}</span></h3>
-        <img src="/img/${hero.heroClass}.png" alt="${hero.heroClass}" class="hero--idle">
+        <img src="../img/${hero.heroClass}.png" alt="${hero.heroClass}" class="hero--idle">
         <p class="hero--str">⚔ Strength : ${hero.strength}</p>
         <p class="hero--sp">🔮 SpellPower : ${hero.spellPower}</p>
         <p class="hero--hp">🧡 HP : ${hero.hp}</p>
@@ -147,7 +147,7 @@ function displayBg() {
         bgContainer.innerHTML = `
             <div class="hero hero--bg hero--bg-1">
                 <div class="hero__info">
-                    <img src="/img/${hero.heroClass}.png" alt="${hero.heroClass}" class="hero--idle">
+                    <img src="../img/${hero.heroClass}.png" alt="${hero.heroClass}" class="hero--idle">
                     <h2>${hero.name}</h2>
                     <p>⚔ ${hero.strength} 🔮 ${hero.spellPower}</p>
                 </div>
@@ -155,7 +155,7 @@ function displayBg() {
             </div>
             <div class="hero hero--bg hero--bg-2">
                 <div class="hero__info">
-                    <img src="/img/${enemy.heroClass}.png" alt="${enemy.heroClass}" class="hero--idle">
+                    <img src="../img/${enemy.heroClass}.png" alt="${enemy.heroClass}" class="hero--idle">
                     <h2>${enemy.name}</h2>
                     <p>⚔ ${enemy.strength} 🔮 ${enemy.spellPower}</p>
                 </div>
