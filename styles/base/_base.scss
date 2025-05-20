@@ -26,6 +26,21 @@ body{
 
 }
 
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+.gif{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    translate: -50% -35%;
+}
+
 
 .wrapper{
     max-width: 900px;
@@ -132,14 +147,36 @@ input::selection {
 
 .btn{
     font-size: 20px;
-    font-weight: 700;
-    background-color: rgb(26, 199, 81);
     font-weight: bold;
     letter-spacing: 3px;
     color: white;
     padding: 1rem 1.5rem;
-    transition: .3s all ease-in-out;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(26, 199, 81);
+    box-shadow:
+      inset 0 -4px 1px rgba(0, 0, 0, 0.3),
+      0 4px 0 rgba(0, 0, 0, 0.6),
+      0 6px 1px rgba(0, 0, 0, 0.2);
+    transition: all 0.1s ease;
     cursor: pointer;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+    outline: 2px solid black;
+
+    &:hover {
+      transform: translateY(2px);
+      box-shadow:
+        inset 0 -2px 1px rgba(0, 0, 0, 0.4),
+        0 2px 0 rgba(0, 0, 0, 0.6),
+        0 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+      transform: translateY(3px);
+      box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.5),
+        0 1px 0 rgba(0, 0, 0, 0.4);
+    }
 
     &--delete{
         color: red;
@@ -179,11 +216,6 @@ input::selection {
         background-color: rgb(65, 182, 102);
         color: white;
     }
-}
-
-.btn:hover{
-    background-color: rgba(54, 75, 61, 0.747);
-    color: white;
 }
 
 h1 {
