@@ -63,35 +63,14 @@ class Hero {
             this.potions--;
         }
     }
+    hpStatus() {
+        return `<div class="hp-bar"><div class="hp-bar__inner" style="width: ${this.hp}%"></div></div>`;
+        }
+
     isDead() {
-    return this.hp <= 0;
+        return this.hp <= 0;
     }
 }
-// // === Hero classes ===
-// class Warrior extends Hero {
-//     constructor(name) {
-//         super(name, 25, 5); // force, peu de magie
-//     }
-// }
-
-// class Mage extends Hero {
-//     constructor(name) {
-//         super(name, 5, 25); // peu de force, beaucoup de magie
-//     }
-// }
-
-// class Hunter extends Hero {
-//     constructor(name) {
-//         super(name, 18, 12); // équilibré, portée
-//     }
-// }
-
-// class Rogue extends Hero {
-//     constructor(name) {
-//         super(name, 20, 8); // rapide, agile
-//     }
-// }
-
 
 // === Create new Hero ===
 function newHero() {
@@ -126,7 +105,7 @@ function displayTab() {
         <p class="hero--hp">🧡 HP : ${hero.hp}</p>
         <p class="hero--mana">💙 Mana : ${hero.mana}</p>
         <p class="hero--potions">🧪 Potions : ${hero.potions}</p>
-        <div class="hp-bar"></div>
+        ${hero.hpStatus()}
         `
         heroesContainerHTML.append(div);
     })
@@ -135,6 +114,7 @@ displayTab();
 
 // === Display Battleground ===
 function displayBg() {
+    bgContainerHTML.innerHTML = "";
     if (selectHero.value && selectEnemy.value && selectEnemy.value !== selectHero.value) {
         messageHTML.textContent = "";
 
@@ -164,25 +144,26 @@ function displayBg() {
         btnPotionHTML.className = "btn btn--potion";
         btnPotionHTML.textContent = `Use potion (${hero.potions})`;
         
-
         bgContainer.innerHTML = `
             <div class="hero hero--bg hero--bg-1">
                 <div class="hero__info">
+                    <img src="/img/${hero.heroClass}.png" alt="${hero.heroClass}" class="hero--idle">
                     <h2>${hero.name}</h2>
                     <p>⚔ ${hero.strength} 🔮 ${hero.spellPower}</p>
                 </div>
-                <div class="hp-bar"></div>
+                ${hero.hpStatus()}
             </div>
             <div class="hero hero--bg hero--bg-2">
                 <div class="hero__info">
+                    <img src="/img/${enemy.heroClass}.png" alt="${enemy.heroClass}" class="hero--idle">
                     <h2>${enemy.name}</h2>
                     <p>⚔ ${enemy.strength} 🔮 ${enemy.spellPower}</p>
                 </div>
-                <div class="hp-bar"></div>
+                ${enemy.hpStatus()}
             </div>
         `;
 
-        bgContainerHTML.innerHTML = ""; // optional: clear previous display
+        messageContainer.innerHTML = hero.shout();
         bgContainerHTML.append(bgContainer);
         bgContainer.append(messageContainer, btnContainer);
         btnContainer.append(btnAttackHTML, btnMagicHTML, btnPotionHTML);
@@ -219,8 +200,11 @@ bgContainerHTML.addEventListener('click', (e) => {
         battleTab[0].attack(battleTab[1]);
         if (!battleTab[1].isDead()) {
         messageContainer.innerHTML += `<p>${battleTab[0].name} strikes ${battleTab[1].name} for ${battleTab[0].strength} damage!</p>`;
+        
+        displayBg();
         } else {
         messageContainer.innerHTML += `<p>${battleTab[1].name} is defeated!</p>`;
+        displayBg();
     }
 }
 
@@ -230,6 +214,7 @@ bgContainerHTML.addEventListener('click', (e) => {
         if (!battleTab[1].isDead()) {
         messageContainer.innerHTML += `<p>${battleTab[0].name} casts a spell on ${battleTab[1].name}, dealing ${battleTab[0].spellPower} damage!</p>`;
         messageContainer.innerHTML += `<p>${battleTab[0].name} has ${battleTab[0].mana} mana left</p>`;
+        displayBg();
         } else {
             messageContainer.innerHTML += `<p>${battleTab[1].name} is defeated!</p>`;
         }
@@ -240,5 +225,6 @@ bgContainerHTML.addEventListener('click', (e) => {
         battleTab[0].usePotion();
         messageContainer.innerHTML += `<p>${battleTab[0].name} drinks a potion and recovers 30 HP! (${battleTab[0].potions} left)</p>`;
         e.target.textContent = `Use potion (${battleTab[0].potions})`;
+        displayBg();
     }
 });
