@@ -1,11 +1,35 @@
 body{
     background-color: #faf3f4;
+    min-height: 100vh;
 }
+
+.background-wrapper{
+    background-image: url(/img/background-rpg.png);
+    background-position: top;
+    background-size: cover;
+    padding: 4rem 0;
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+
+    &::before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 1;
+    }
+}
+
+
 .wrapper{
     max-width: 900px;
     margin: auto;
     text-align: center;
     padding-top: 2rem;
+    position: relative;
+    z-index: 4;
 
     &--list{
         background-color: white;
@@ -103,10 +127,12 @@ input::selection {
   }
 
 .btn{
-    background-color: rgba(182, 250, 203, 0.747);
+    font-size: 20px;
+    font-weight: 700;
+    background-color: rgb(26, 199, 81);
     font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 3px;
+    color: white;
     padding: 1rem 1.5rem;
     transition: .3s all ease-in-out;
     cursor: pointer;
@@ -156,8 +182,13 @@ input::selection {
     color: white;
 }
 
-h2 {
-    
+h1 {
+    font-family: "Jacquard 12", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    color: antiquewhite;
+    font-size: 80px;
+
     & i{
     margin-right: 1rem;
 }
@@ -222,6 +253,25 @@ h2 {
     &__info{
         display: flex;
         align-items: center;
+    }
+    &--idle{
+        height: 100px;
+    }
+    &--class{
+        text-transform: capitalize;
+
+        &-warrior{
+            color: rgb(214, 18, 83);
+        }
+        &-hunter{
+            color: rgb(65, 182, 102);
+        }
+        &-mage{
+            color: rgb(90, 110, 228);
+        }
+        &-rogue{
+            color: rgb(146, 197, 50);
+        }
     }
 
     

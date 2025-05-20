@@ -21,16 +21,29 @@ const battleTab = [];
 
 // === Class Hero ===
 class Hero {
-    constructor(name, strength, spellPower) {
+    constructor(name, strength, spellPower, heroClass) {
         this.name = name;
         this.strength = strength;
         this.spellPower = spellPower;
         this.hp = 100;
         this.mana = 50;
         this.potions = 2;
+
+        if (strength >= 25) {
+            this.heroClass = "warrior";
+        } else if (strength >= 10 && strength < 20 && spellPower >= 10) {
+            this.heroClass = "hunter";
+        } else if (spellPower >= 20) {
+            this.heroClass = "mage";
+            this.mana = 80;
+        } else if (strength >= 20) {
+            this.heroClass = "rogue";
+        } else {
+            this.heroClass = "novice";
+        }
     }
     shout(){
-        return `I'm the mighty ${this.name} and I'm ready to die!`;
+        return `I'm the mighty ${this.heroClass} ${this.name} and I'm ready to die!`;
     }
     attack(target){
         target.hp -= this.strength;
@@ -52,8 +65,32 @@ class Hero {
     }
     isDead() {
     return this.hp <= 0;
+    }
 }
-}
+// // === Hero classes ===
+// class Warrior extends Hero {
+//     constructor(name) {
+//         super(name, 25, 5); // force, peu de magie
+//     }
+// }
+
+// class Mage extends Hero {
+//     constructor(name) {
+//         super(name, 5, 25); // peu de force, beaucoup de magie
+//     }
+// }
+
+// class Hunter extends Hero {
+//     constructor(name) {
+//         super(name, 18, 12); // équilibré, portée
+//     }
+// }
+
+// class Rogue extends Hero {
+//     constructor(name) {
+//         super(name, 20, 8); // rapide, agile
+//     }
+// }
 
 
 // === Create new Hero ===
@@ -82,7 +119,8 @@ function displayTab() {
         div.className = `${hero.name} hero`;
         div.setAttribute("data-index", `${heroesTab.indexOf(hero)}`);
         div.innerHTML += `
-        <h3 class="hero--name">${hero.name}</h3>
+        <h3 class="hero--name">${hero.name} | <span class="hero--class hero--class-${hero.heroClass}">${hero.heroClass}</span></h3>
+        <img src="/img/${hero.heroClass}.png" alt="${hero.heroClass}" class="hero--idle">
         <p class="hero--str">⚔ Strength : ${hero.strength}</p>
         <p class="hero--sp">🔮 SpellPower : ${hero.spellPower}</p>
         <p class="hero--hp">🧡 HP : ${hero.hp}</p>
