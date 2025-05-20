@@ -10,12 +10,14 @@ const heroHTML = document.querySelector('.hero');
 const btnGenerate = document.querySelector('.btn');
 const btnStartBattle = document.querySelector('.btn--fight');
 const btnDelete = document.querySelector('.btn--delete');
+const btnPotionHTML = document.querySelector('.btn--potion');
 
 
 const selectHero = document.getElementById('select__hero');
 const selectEnemy = document.getElementById('select__enemy');
 
 const heroesTab = [];
+const battleTab = [];
 
 // === Class Hero ===
 class Hero {
@@ -40,7 +42,7 @@ class Hero {
         }
     }
     getDamage(damage){
-        this.hp -= damage:
+        this.hp -= damage;
     }
     usePotion(){
         if (this.potions > 0) {
@@ -48,16 +50,17 @@ class Hero {
             this.potions--;
         }
     }
-    isDead(){
-        return this.hp <= 0 ? true : false;
-    }
+    isDead() {
+    return this.hp <= 0;
 }
+}
+
 
 // === Create new Hero ===
 function newHero() {
     heroesTab.push(new Hero(inputName.value, inputStr.value, inputSp.value));
     let option = document.createElement('option');
-    option.id = option.value = inputName.value;
+    option.id = option.value = inputName.value; // === A CORRIGER PLUS TARD MERCI LUCAS 💀💀💀💀
     option.textContent = `${inputName.value} | ⚔ ${inputStr.value} 🔮 ${inputSp.value}`
 
     selectHero.append(option.cloneNode(true));
@@ -99,9 +102,30 @@ function displayBg() {
 
         const hero = heroesTab.find(h => h.name === selectHero.value);
         const enemy = heroesTab.find(h => h.name === selectEnemy.value);
+        battleTab.push(hero);
+        battleTab.push(enemy);
+        console.log(battleTab);
+        
 
         const bgContainer = document.createElement('div');
         bgContainer.className = "battleground__container";
+
+        const messageContainer = document.createElement('div');
+        messageContainer.className = "message__container";
+
+        const btnContainer = document.createElement('div');
+        btnContainer.className = "btn__container";
+
+        const btnAttackHTML = document.createElement('div');
+        btnAttackHTML.className = "btn btn--attack";
+        btnAttackHTML.textContent = 'Attack';
+        const btnMagicHTML = document.createElement('div');
+        btnMagicHTML.className = "btn btn--magic";
+        btnMagicHTML.textContent = 'Spellcast';
+        const btnPotionHTML = document.createElement('div');
+        btnPotionHTML.className = "btn btn--potion";
+        btnPotionHTML.textContent = `Use potion (${hero.potions})`;
+        
 
         bgContainer.innerHTML = `
             <div class="hero hero--bg hero--bg-1">
@@ -122,6 +146,8 @@ function displayBg() {
 
         bgContainerHTML.innerHTML = ""; // optional: clear previous display
         bgContainerHTML.append(bgContainer);
+        bgContainer.append(messageContainer, btnContainer);
+        btnContainer.append(btnAttackHTML, btnMagicHTML, btnPotionHTML);
     } else {
         messageHTML.textContent = "❌ Please choose heroes to start the battle.";
     }
@@ -147,3 +173,34 @@ btnStartBattle.addEventListener('click', (e) => {
     e.preventDefault();
     displayBg();
 })
+
+bgContainerHTML.addEventListener('click', (e) => {
+    const messageContainer = bgContainerHTML.querySelector('.message__container');
+    // == Physical Attack
+    if (e.target.classList.contains('btn--attack')) {
+        battleTab[0].attack(battleTab[1]);
+        if (!battleTab[1].isDead()) {
+        messageContainer.innerHTML += `<p>${battleTab[0].name} strikes ${battleTab[1].name} for ${battleTab[0].strength} damage!</p>`;
+        } else {
+        messageContainer.innerHTML += `<p>${battleTab[1].name} is defeated!</p>`;
+    }
+}
+
+    // == Magical Attack
+    if (e.target.classList.contains('btn--magic')) {
+        battleTab[0].magicAttack(battleTab[1]);
+        if (!battleTab[1].isDead()) {
+        messageContainer.innerHTML += `<p>${battleTab[0].name} casts a spell on ${battleTab[1].name}, dealing ${battleTab[0].spellPower} damage!</p>`;
+        messageContainer.innerHTML += `<p>${battleTab[0].name} has ${battleTab[0].mana} mana left</p>`;
+        } else {
+            messageContainer.innerHTML += `<p>${battleTab[1].name} is defeated!</p>`;
+        }
+    }
+
+    // == Use Potion
+    if (e.target.classList.contains('btn--potion')) {
+        battleTab[0].usePotion();
+        messageContainer.innerHTML += `<p>${battleTab[0].name} drinks a potion and recovers 30 HP! (${battleTab[0].potions} left)</p>`;
+        e.target.textContent = `Use potion (${battleTab[0].potions})`;
+    }
+});
