@@ -52,8 +52,6 @@ class Hero {
         if (this.mana > 20) {
             target.hp -= this.spellPower;
             this.mana -= 20;
-        } else {
-            return `Not enough mana !`
         }
     }
 
