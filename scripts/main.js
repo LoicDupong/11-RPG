@@ -103,7 +103,7 @@ function displayTab() {
         <img src="img/${hero.heroClass}.png" alt="${hero.heroClass}" class="hero--idle">
         <p class="hero--str">⚔ Strength : ${hero.strength}</p>
         <p class="hero--sp">🔮 SpellPower : ${hero.spellPower}</p>
-        <p class="hero--hp">🦡 HP : ${hero.hp}</p>
+        <p class="hero--hp">🧡 HP : ${hero.hp}</p>
         <p class="hero--mana">💙 Mana : ${hero.mana}</p>
         <p class="hero--potions">🧪 Potions : ${hero.potions}</p>
         <div class="hp-bar"><div class="hp-bar__inner" style="width: ${hero.hp}%"></div></div>
