@@ -36,7 +36,7 @@ index.html           => Main entry point
 
 ## ▶️ How to Use
 
-1. Open `https://loicdupong.github.io/11-RPG/` in your browser.
+1. Open [https://loicdupong.github.io/11-RPG/] in your browser.
 2. Create two heroes.
 3. Click “Start Battle”.
 4. Use the buttons to fight!
